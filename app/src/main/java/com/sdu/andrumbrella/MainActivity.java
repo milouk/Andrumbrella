@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mErrorMessage;
     private ProgressBar mProgressBar;
     private WeatherAdapter mAdapter;
-    public static TextView mTestNet;
+    private static TextView mTestNet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         mTestNet.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorMessage.setVisibility(View.INVISIBLE);
-        URL weatherUrl = NetworkCon.buildUrl("Patras");
+        URL weatherUrl = NetworkCon.buildUrl("Odense");
         new WeatherTask().execute(weatherUrl);
     }
 
-    public class WeatherTask extends AsyncTask<URL, Void, String> {
+    public static class WeatherTask extends AsyncTask<URL, Void, String> {
         @Override
         protected String doInBackground(URL... urls) {
             URL weatherUrl = urls[0];
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             if(s != null && !s.equals("")){
-                mTestNet.setText(s);
+                MainActivity.mTestNet.setText(s);
             }
         }
     }
