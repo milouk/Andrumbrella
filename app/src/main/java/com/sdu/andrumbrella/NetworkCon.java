@@ -2,6 +2,7 @@ package com.sdu.andrumbrella;
 
 import android.net.Uri;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 public class NetworkCon {
 
-    private static final String BASE_API_CURRENT_DAY_URL = "http://api.openweathermap.org/data/2.5/weather";
+    private static final String BASE_API_CURRENT_DAY_URL = "http://api.openweathermap.org/data/2.5/forecast";
     private static final String API_KEY = "appid";
     private static final String api_key = "9286d1d64052c5ea55e0a13f7eba1d4a";
     private static final String LOCATION_QUERY = "q";

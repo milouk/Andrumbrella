@@ -9,8 +9,11 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mErrorMessage;
     private ProgressBar mProgressBar;
     private WeatherAdapter mAdapter;
-    private static TextView mTestNet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,44 +30,63 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView =  findViewById(R.id.weather_recyclerview);
         mErrorMessage =  findViewById(R.id.error_message);
         mProgressBar =  findViewById(R.id.loading_bar);
-        mTestNet = findViewById(R.id.test_net);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
         mAdapter =  new WeatherAdapter();
-        mRecyclerView.setAdapter(mAdapter);
         loadWeather();
-    }
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        }
 
-    public void loadWeather(){
-        mTestNet.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mErrorMessage.setVisibility(View.INVISIBLE);
-        URL weatherUrl = NetworkCon.buildUrl("Odense");
+
+
+    private void loadWeather(){
+        showWeather();
+        URL weatherUrl = NetworkCon.buildUrl("Patras");
         new WeatherTask().execute(weatherUrl);
     }
 
-    public static class WeatherTask extends AsyncTask<URL, Void, String> {
+    public void showWeather(){
+        mErrorMessage.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+
+
+    }
+
+    public void showErrorMessage(){
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mErrorMessage.setVisibility(View.VISIBLE);
+    }
+
+    public class WeatherTask extends AsyncTask<URL, Void, String[]> {
+
+
         @Override
-        protected String doInBackground(URL... urls) {
+        protected String[] doInBackground(URL... urls) {
             URL weatherUrl = urls[0];
             String weatherResults = null;
             try{
                 weatherResults = NetworkCon.getResponseFromHttpUrl(weatherUrl);
-            }catch (IOException e){
-                e.printStackTrace();
+                String[] parsedWeatherList = JsonUtils.getWeatherFromJson(weatherResults);
+                return parsedWeatherList;
+            }catch (Exception e){
+                showErrorMessage();
+                return null;
             }
-
-            return weatherResults;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            if(s != null && !s.equals("")){
-                MainActivity.mTestNet.setText(s);
+        protected void onPostExecute(String[] parsedWeatherResults) {
+            if(parsedWeatherResults != null && !parsedWeatherResults.equals("")){
+                showWeather();
+                HashSet<String> upcomingDays = new HashSet<>();
+                for(int i = 0;i < parsedWeatherResults.length;i++) {
+                    upcomingDays.add(parsedWeatherResults[i].split("\\s")[0]);
+                }
+                mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
+            }else{
+                showErrorMessage();
             }
         }
     }
-
-
 }

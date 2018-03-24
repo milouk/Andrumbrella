@@ -1,12 +1,17 @@
 package com.sdu.andrumbrella;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Michael on 19-Mar-18.
@@ -14,7 +19,13 @@ import android.widget.TextView;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
 
-    String[] array = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+    private String[] upcomingDays;
+
+    public void setWeatherData(String[] day){
+        upcomingDays = day;
+        notifyDataSetChanged();
+    }
+
 
 
     public static class WeatherViewHolder extends RecyclerView.ViewHolder{
@@ -23,7 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
         public WeatherViewHolder(View view){
             super(view);
-            mWeather = (TextView) view.findViewById(R.id.weather);
+            mWeather = view.findViewById(R.id.weather);
         }
     }
 
@@ -39,16 +50,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     @Override
     public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
-        String mWeatherData = array[position];
+        String mWeatherData = upcomingDays[position];
         holder.mWeather.setText(mWeatherData);
     }
 
     @Override
     public int getItemCount() {
-        if(array == null) {
+        if(upcomingDays == null) {
             return 0;
         }else{
-            return array.length;
+            return upcomingDays.length;
         }
     }
 }
