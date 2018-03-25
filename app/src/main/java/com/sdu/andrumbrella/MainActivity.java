@@ -5,22 +5,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.json.JSONException;
 
-import java.io.IOException;
+import com.sdu.andrumbrella.utilities.GeneralUtils;
+import com.sdu.andrumbrella.utilities.JsonUtils;
+import com.sdu.andrumbrella.utilities.NetworkUtils;
+
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapter.DayClickListener {
 
     private RecyclerView mRecyclerView;
     private TextView mErrorMessage;
     private ProgressBar mProgressBar;
-    private WeatherAdapter mAdapter;
+    private UpcomingDaysAdapter mAdapter;
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +41,32 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar =  findViewById(R.id.loading_bar);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter =  new WeatherAdapter();
-        loadWeather();
+        mAdapter =  new UpcomingDaysAdapter(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        loadDays();
         }
 
 
+    @Override
+    public void onDayClickListener(int clickedDay) {
+        if(mToast != null){
+            mToast.cancel();
+        }
+        String toastMessage = "item # " + String.valueOf(clickedDay);
+        Log.d("TOAST_MESSAGE", toastMessage);
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+        mToast.show();
 
-    private void loadWeather(){
+
+    }
+
+    private void loadDays(){
         showWeather();
-        URL weatherUrl = NetworkCon.buildUrl("Patras");
+        URL weatherUrl = NetworkUtils.buildUrl("Patras");
         new WeatherTask().execute(weatherUrl);
     }
+
 
     public void showWeather(){
         mErrorMessage.setVisibility(View.INVISIBLE);
@@ -64,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String[] doInBackground(URL... urls) {
             URL weatherUrl = urls[0];
-            String weatherResults = null;
+            String weatherResults;
             try{
-                weatherResults = NetworkCon.getResponseFromHttpUrl(weatherUrl);
+                weatherResults = NetworkUtils.getResponseFromHttpUrl(weatherUrl);
                 String[] parsedWeatherList = JsonUtils.getWeatherFromJson(weatherResults);
                 return parsedWeatherList;
             }catch (Exception e){
@@ -79,9 +101,13 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String[] parsedWeatherResults) {
             if(parsedWeatherResults != null && !parsedWeatherResults.equals("")){
                 showWeather();
-                HashSet<String> upcomingDays = new HashSet<>();
+                LinkedHashSet<String> upcomingDays = new LinkedHashSet<>();
+                DateFormat dateFormat = new SimpleDateFormat("MM");
+                Date date = new Date();
                 for(int i = 0;i < parsedWeatherResults.length;i++) {
-                    upcomingDays.add(parsedWeatherResults[i].split("\\s")[0]);
+                    upcomingDays.add(GeneralUtils.getDayByName(parsedWeatherResults[i].split("\\s")[0]) + " " +
+                         String.valueOf(GeneralUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
+                            + GeneralUtils.getMonth(dateFormat.format(date)));
                 }
                 mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
             }else{

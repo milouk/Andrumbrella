@@ -372,6 +372,10 @@
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
     },
     {
+        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_forecast.xml.flat",
+        "source": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\src\\main\\res\\layout\\activity_forecast.xml"
+    },
+    {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_primary_text_material_dark.xml.flat",
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\color\\abc_primary_text_material_dark.xml"
     },
@@ -712,6 +716,10 @@
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\7fd58d8eea2a65e863b335281f750c58\\res\\layout\\notification_template_big_media_narrow.xml"
     },
     {
+        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\layout_forecast_list.xml.flat",
+        "source": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\src\\main\\res\\layout\\forecast_list.xml"
+    },
+    {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notify_panel_notification_icon_bg.png.flat",
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\17679cbd9c4fdab783cfae6142af104a\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
     },
@@ -804,10 +812,6 @@
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable-xxxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\layout_weather_list.xml.flat",
-        "source": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\src\\main\\res\\layout\\weather_list.xml"
-    },
-    {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
@@ -832,12 +836,12 @@
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\anim_tooltip_enter.xml.flat",
-        "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\anim\\tooltip_enter.xml"
-    },
-    {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\anim_tooltip_enter.xml.flat",
+        "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\anim\\tooltip_enter.xml"
     },
     {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_36dp.png.flat",
@@ -994,6 +998,10 @@
     {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\ce2ee70e041bfebf2a7bf15181db6be6\\res\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\layout_upcoming_days_list.xml.flat",
+        "source": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\src\\main\\res\\layout\\upcoming_days_list.xml"
     },
     {
         "merged": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_normal.9.png.flat",
