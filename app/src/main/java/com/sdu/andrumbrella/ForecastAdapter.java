@@ -2,10 +2,13 @@ package com.sdu.andrumbrella;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by Michael on 25-Mar-18.
@@ -13,7 +16,12 @@ import android.widget.TextView;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>{
 
-    private String[] forecastData;
+    private ArrayList<String> forecastData;
+
+    public void setForecastData(ArrayList<String> data){
+        forecastData = data;
+        notifyDataSetChanged();
+    }
 
 
     @Override
@@ -27,16 +35,17 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
 
     @Override
     public void onBindViewHolder(ForecastViewHolder holder, int position) {
-        String mForecastData = forecastData[position];
+        String mForecastData = forecastData.get(position);
         holder.mForecast.setText(mForecastData);
     }
 
     @Override
     public int getItemCount() {
         if(forecastData == null) {
+            Log.d("peos", "peos");
             return 0;
         }else{
-            return forecastData.length;
+            return forecastData.size();
         }
     }
 

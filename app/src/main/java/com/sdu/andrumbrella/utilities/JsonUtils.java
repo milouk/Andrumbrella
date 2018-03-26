@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Michael on 22-Mar-18.
@@ -23,7 +24,7 @@ public final class JsonUtils {
         final String MIN_TMP = "min";
         final String MESSAGE_CODE = "cod";
 
-        String[] parsedWeatherData = null;
+        String[] parsedWeatherData;
 
         JSONObject jweather = new JSONObject(jsonString);
 
@@ -53,7 +54,6 @@ public final class JsonUtils {
             String max_temp = main.getString("temp_max");
             String min_temp = main.getString("temp_min");
             parsedWeatherData[i] = date + " - " + temp + " - " + max_temp + " - " + min_temp;
-
         }
         return parsedWeatherData;
     }

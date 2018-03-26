@@ -1,5 +1,6 @@
 package com.sdu.andrumbrella;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,7 +21,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapter.DayClickListener {
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapt
     private ProgressBar mProgressBar;
     private UpcomingDaysAdapter mAdapter;
     private Toast mToast;
+    public static String[] weatherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +55,13 @@ public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapt
             mToast.cancel();
         }
         String toastMessage = "item # " + String.valueOf(clickedDay);
-        Log.d("TOAST_MESSAGE", toastMessage);
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
         mToast.show();
-
+        TextView clickedTextView = mRecyclerView.findViewHolderForAdapterPosition(clickedDay).itemView.findViewById(R.id.days);
+        String clickedTextViewtoString = clickedTextView.getText().toString();
+        Intent passForecast = new Intent(MainActivity.this, Forecast.class);
+        passForecast.putExtra(Intent.EXTRA_TEXT, clickedTextViewtoString.split("\\s")[1]);
+        startActivity(passForecast);
 
     }
 
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapt
                          String.valueOf(GeneralUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
                             + GeneralUtils.getMonth(dateFormat.format(date)));
                 }
+                weatherData = parsedWeatherResults;
                 mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
             }else{
                 showErrorMessage();

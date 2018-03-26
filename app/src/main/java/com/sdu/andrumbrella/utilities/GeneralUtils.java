@@ -1,7 +1,12 @@
 package com.sdu.andrumbrella.utilities;
 
+import android.util.Log;
+
+import com.sdu.andrumbrella.MainActivity;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -12,6 +17,21 @@ import java.util.Date;
 public class GeneralUtils {
 
 
+    public static ArrayList<String> getWeatherData(String day){
+        ArrayList<String> clickedDayData = new ArrayList<>();
+
+        for(int i = 0;i < MainActivity.weatherData.length;i++){
+            if(MainActivity.weatherData[i].split("\\s")[0].split("-")[2].equals(day)){
+                clickedDayData.add(MainActivity.weatherData[i]);
+            }
+        }
+        for(int i = 0;i < clickedDayData.size();i++){
+            Log.d("debug", clickedDayData.get(i));
+        }
+        return clickedDayData;
+    }
+
+    //Get Name of a day
     public static String getDayByName(String date){
         SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
@@ -24,6 +44,7 @@ public class GeneralUtils {
         return null;
     }
 
+    //Parse date
     public static Date parseDate(String date) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -32,6 +53,7 @@ public class GeneralUtils {
         }
     }
 
+    //Get number of a day
     public static int getDayByNumber(String date){
         Date newDate = parseDate(date);
         Calendar cal = Calendar.getInstance();
@@ -39,6 +61,7 @@ public class GeneralUtils {
         return cal.get(Calendar.DAY_OF_MONTH);
     }
 
+    //Get month name
     public static String getMonth(String month){
         String monthString;
         switch (month) {

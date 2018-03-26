@@ -1,10 +1,15 @@
 package com.sdu.andrumbrella;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+
+import com.sdu.andrumbrella.utilities.GeneralUtils;
 
 public class Forecast extends AppCompatActivity {
 
@@ -24,11 +29,16 @@ public class Forecast extends AppCompatActivity {
         forecastRecyclerView.setLayoutManager(layoutManager);
         fAdapter = new ForecastAdapter();
         forecastRecyclerView.setAdapter(fAdapter);
-        loadForecast();
+        Intent dayIndex = getIntent();
+        loadForecast(dayIndex);
     }
 
-    public void loadForecast(){
-
+    public void loadForecast(Intent dayIndex){
+        forecast_error.setVisibility(View.INVISIBLE);
+        forecastRecyclerView.setVisibility(View.VISIBLE);
+        if(dayIndex.hasExtra(Intent.EXTRA_TEXT)) {
+           fAdapter.setForecastData(GeneralUtils.getWeatherData(dayIndex.getStringExtra(Intent.EXTRA_TEXT)));
+        }
     }
 
 
