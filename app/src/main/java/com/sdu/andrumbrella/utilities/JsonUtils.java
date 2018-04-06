@@ -1,14 +1,18 @@
 package com.sdu.andrumbrella.utilities;
 
-import android.content.Context;
-import android.util.Log;
+
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
-import java.util.LinkedHashMap;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Michael on 22-Mar-18.
@@ -53,7 +57,24 @@ public final class JsonUtils {
             String temp = main.getString("temp");
             String max_temp = main.getString("temp_max");
             String min_temp = main.getString("temp_min");
-            parsedWeatherData[i] = date + " - " + temp + " - " + max_temp + " - " + min_temp;
+            if(date.split("\\s")[1].split(":")[0].equals("00")){
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    Date myDate = dateFormat.parse(date);
+                    Calendar cal1 = Calendar.getInstance();
+                    cal1.setTime(myDate);
+                    cal1.add(Calendar.DAY_OF_YEAR, -1);
+                    Date previousDate = cal1.getTime();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String previousDate2 = df.format(previousDate);
+                    String finaldDate = previousDate2.replace(previousDate2.split("\\s")[1], "24:00:00");
+                    parsedWeatherData[i] = finaldDate + " " + temp + " " + max_temp + " " + min_temp;
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
+            }else {
+                parsedWeatherData[i] = date + " " + temp + " " + max_temp + " " + min_temp;
+            }
         }
         return parsedWeatherData;
     }

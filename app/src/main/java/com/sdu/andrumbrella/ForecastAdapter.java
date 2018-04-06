@@ -2,7 +2,6 @@ package com.sdu.andrumbrella;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +41,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public int getItemCount() {
         if(forecastData == null) {
-            Log.d("peos", "peos");
             return 0;
         }else{
             return forecastData.size();

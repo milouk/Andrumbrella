@@ -1,123 +1,84 @@
 package com.sdu.andrumbrella;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
+public class MainActivity extends AppCompatActivity {
 
-import com.sdu.andrumbrella.utilities.GeneralUtils;
-import com.sdu.andrumbrella.utilities.JsonUtils;
-import com.sdu.andrumbrella.utilities.NetworkUtils;
+    private TextView errorMessage;
+    private EditText countryCode;
+    private EditText cityName;
+    private Switch metricSwitch;
+    private Button searchButton;
 
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashSet;
-
-public class MainActivity extends AppCompatActivity implements UpcomingDaysAdapter.DayClickListener {
-
-    private RecyclerView mRecyclerView;
-    private TextView mErrorMessage;
-    private ProgressBar mProgressBar;
-    private UpcomingDaysAdapter mAdapter;
-    private Toast mToast;
-    public static String[] weatherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mRecyclerView =  findViewById(R.id.weather_recyclerview);
-        mErrorMessage =  findViewById(R.id.error_message);
-        mProgressBar =  findViewById(R.id.loading_bar);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mAdapter =  new UpcomingDaysAdapter(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
-        loadDays();
-        }
+        countryCode = findViewById(R.id.countryCode);
+        cityName = findViewById(R.id.cityName);
+        metricSwitch = findViewById(R.id.metric);
+        searchButton = findViewById(R.id.search);
+        errorMessage = findViewById(R.id.errorMessage);
+        countryCode.clearFocus();
+        cityName.clearFocus();
 
 
-    @Override
-    public void onDayClickListener(int clickedDay) {
-        if(mToast != null){
-            mToast.cancel();
-        }
-        String toastMessage = "item # " + String.valueOf(clickedDay);
-        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-        mToast.show();
-        TextView clickedTextView = mRecyclerView.findViewHolderForAdapterPosition(clickedDay).itemView.findViewById(R.id.days);
-        String clickedTextViewtoString = clickedTextView.getText().toString();
-        Intent passForecast = new Intent(MainActivity.this, Forecast.class);
-        passForecast.putExtra(Intent.EXTRA_TEXT, clickedTextViewtoString.split("\\s")[1]);
-        startActivity(passForecast);
 
-    }
+        countryCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    hideErrorMessage();
+                    countryCode.setHint("");
+                } else {
+                    countryCode.setHint("Country Code");
+                }
+            }
+        });
 
-    private void loadDays(){
-        showWeather();
-        URL weatherUrl = NetworkUtils.buildUrl("Patras");
-        new WeatherTask().execute(weatherUrl);
-    }
-
-
-    public void showWeather(){
-        mErrorMessage.setVisibility(View.INVISIBLE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        cityName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    hideErrorMessage();
+                    cityName.setHint("");
+                } else {
+                    cityName.setHint("City");
+                }
+            }
+        });
 
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideErrorMessage();
+                if(!countryCode.getText().toString().equals("") && !cityName.getText().toString().equals("")) {
+                    Intent startSearch = new Intent(MainActivity.this, UpcomingDays.class);
+                    startSearch.putExtra("COUNTRY_CODE", countryCode.getText().toString());
+                    startSearch.putExtra("CITY_NAME", cityName.getText().toString());
+                    startSearch.putExtra("SWITCH_STATE", metricSwitch.isChecked());
+                    startActivity(startSearch);
+                }else{
+                    showErrorMessage();
+                }
+            }
+        });
     }
 
     public void showErrorMessage(){
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mErrorMessage.setVisibility(View.VISIBLE);
+        errorMessage.setVisibility(View.VISIBLE);
     }
 
-    public class WeatherTask extends AsyncTask<URL, Void, String[]> {
-
-
-        @Override
-        protected String[] doInBackground(URL... urls) {
-            URL weatherUrl = urls[0];
-            String weatherResults;
-            try{
-                weatherResults = NetworkUtils.getResponseFromHttpUrl(weatherUrl);
-                String[] parsedWeatherList = JsonUtils.getWeatherFromJson(weatherResults);
-                return parsedWeatherList;
-            }catch (Exception e){
-                showErrorMessage();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String[] parsedWeatherResults) {
-            if(parsedWeatherResults != null && !parsedWeatherResults.equals("")){
-                showWeather();
-                LinkedHashSet<String> upcomingDays = new LinkedHashSet<>();
-                DateFormat dateFormat = new SimpleDateFormat("MM");
-                Date date = new Date();
-                for(int i = 0;i < parsedWeatherResults.length;i++) {
-                    upcomingDays.add(GeneralUtils.getDayByName(parsedWeatherResults[i].split("\\s")[0]) + " " +
-                         String.valueOf(GeneralUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
-                            + GeneralUtils.getMonth(dateFormat.format(date)));
-                }
-                weatherData = parsedWeatherResults;
-                mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
-            }else{
-                showErrorMessage();
-            }
-        }
+    public void hideErrorMessage(){
+        errorMessage.setVisibility(View.INVISIBLE);
     }
 }

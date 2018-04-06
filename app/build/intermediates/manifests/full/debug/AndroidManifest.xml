@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.sdu.andrumbrella.Forecast" />
+        <activity android:name="com.sdu.andrumbrella.UpcomingDays" />
 
         <meta-data
             android:name="android.support.VERSION"
