@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-el-rGR\\values-el-rGR.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\src\\main\\res\\values-el-rGR\\strings.xml",
+                    "from": {
+                        "startLines": "1,2,11,12,13,3,4,5,6,7,8,9,10",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "17,68,476,523,570,115,163,207,252,294,338,382,428",
+                        "endColumns": "49,45,45,45,46,46,42,43,40,42,42,44,46",
+                        "endOffsets": "62,109,517,564,612,157,201,246,288,332,376,422,470"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,105,151,197,243,290,337,380,424,465,508,551,596",
+                        "endColumns": "49,45,45,45,46,46,42,43,40,42,42,44,46",
+                        "endOffsets": "100,146,192,238,285,332,375,419,460,503,546,591,638"
+                    }
+                }
+            ]
+        }
+    ]
+}

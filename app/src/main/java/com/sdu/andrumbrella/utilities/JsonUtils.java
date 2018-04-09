@@ -3,6 +3,8 @@ package com.sdu.andrumbrella.utilities;
 
 
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,9 +25,13 @@ public final class JsonUtils {
     public static String[] getWeatherFromJson(String jsonString) throws JSONException{
 
         final String LIST = "list";
-        final String TMP = "tmp";
-        final String MAX_TMP = "max";
-        final String MIN_TMP = "min";
+        final String DATE = "dt_txt";
+        final String MAIN = "main";
+        final String WEATHER = "weather";
+        final String DESCRIPTION = "description";
+        final String ICON = "icon";
+        final String MIN_TMP = "temp_min";
+        final String MAX_TMP = "temp_max";
         final String MESSAGE_CODE = "cod";
 
         String[] parsedWeatherData;
@@ -52,11 +58,19 @@ public final class JsonUtils {
         parsedWeatherData = new String[weatherList.length()];
         for(int i = 0;i < weatherList.length();i++){
             JSONObject dayWeather = weatherList.getJSONObject(i);
-            String date = dayWeather.getString("dt_txt");
-            JSONObject main = dayWeather.getJSONObject("main");
-            String temp = main.getString("temp");
-            String max_temp = main.getString("temp_max");
-            String min_temp = main.getString("temp_min");
+            String date = dayWeather.getString(DATE);
+            JSONObject main = dayWeather.getJSONObject(MAIN);
+            JSONArray weatherDetails = dayWeather.getJSONArray(WEATHER);
+            String description = null;
+            String icon = null;
+            for(int j = 0;j < weatherDetails.length();j++) {
+                JSONObject details = weatherDetails.getJSONObject(j);
+                description = details.getString(DESCRIPTION);
+                icon = details.getString(ICON);
+            }
+            String max_temp = main.getString(MAX_TMP);
+            String min_temp = main.getString(MIN_TMP);
+
             if(date.split("\\s")[1].split(":")[0].equals("00")){
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -67,13 +81,15 @@ public final class JsonUtils {
                     Date previousDate = cal1.getTime();
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String previousDate2 = df.format(previousDate);
-                    String finaldDate = previousDate2.replace(previousDate2.split("\\s")[1], "24:00:00");
-                    parsedWeatherData[i] = finaldDate + " " + temp + " " + max_temp + " " + min_temp;
+                   String finaldDate = previousDate2.replace(previousDate2.split("\\s")[1], "24:00:00");
+                   parsedWeatherData[i] = GeneralUtils.convertInLocalTime(finaldDate) + " "
+                           + max_temp + " " + min_temp + " " + description.replace(" ", "/")  + "-" + icon;
                 }catch (ParseException e){
                     e.printStackTrace();
                 }
             }else {
-                parsedWeatherData[i] = date + " " + temp + " " + max_temp + " " + min_temp;
+                parsedWeatherData[i] = GeneralUtils.convertInLocalTime(date) + " "
+                        + max_temp + " " + min_temp + " " + description.replace(" ", "/") +  "-" + icon;
             }
         }
         return parsedWeatherData;

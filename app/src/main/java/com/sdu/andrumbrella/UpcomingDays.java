@@ -1,5 +1,6 @@
 package com.sdu.andrumbrella;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ public class UpcomingDays extends AppCompatActivity implements UpcomingDaysAdapt
     private String cityName;
     private boolean metric;
     public static String[] weatherData;
+    public Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +120,7 @@ public class UpcomingDays extends AppCompatActivity implements UpcomingDaysAdapt
                     upcomingDays.add(GeneralUtils.getDayByName(parsedWeatherResults[i].split("\\s")[0]) + " " +
 
                          String.valueOf(GeneralUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
-                            + GeneralUtils.getMonthByName(parsedWeatherResults[i].split("\\s")[0]));
+                            + GeneralUtils.getMonthByName(parsedWeatherResults[i].split("\\s")[0], context));
                 }
                 weatherData = parsedWeatherResults;
                 mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
