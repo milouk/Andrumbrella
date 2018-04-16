@@ -12,4 +12,6 @@
     <string name="month10">Οκτωβρίου</string>
     <string name="month11">Νοεμβρίου</string>
     <string name="month12">Δεκεμβρίου</string>
+    <string name="action_refresh">Ανανέωση</string>
+
 </resources>

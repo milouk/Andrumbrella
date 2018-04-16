@@ -27,6 +27,10 @@ public class UpcomingDaysAdapter extends RecyclerView.Adapter<UpcomingDaysAdapte
         notifyDataSetChanged();
     }
 
+    public void removeItems(){
+        upcomingDays = null;
+        notifyDataSetChanged();
+    }
 
     public interface DayClickListener{
         void onDayClickListener(int clickedDay);

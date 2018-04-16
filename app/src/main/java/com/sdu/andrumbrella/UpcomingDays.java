@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-import com.sdu.andrumbrella.utilities.GeneralUtils;
+import com.sdu.andrumbrella.utilities.DateUtils;
 import com.sdu.andrumbrella.utilities.JsonUtils;
 import com.sdu.andrumbrella.utilities.NetworkUtils;
 
@@ -76,9 +78,25 @@ public class UpcomingDays extends AppCompatActivity implements UpcomingDaysAdapt
 
     }
 
-    private void loadDays(){
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.andrumbrella_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mAdapter.removeItems();
+        loadDays();
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void loadDays(){
         showWeather();
         URL weatherUrl = NetworkUtils.buildUrl(cityName, countryCode);
+        mProgressBar.setVisibility(View.VISIBLE);
         new WeatherTask().execute(weatherUrl);
     }
 
@@ -117,12 +135,13 @@ public class UpcomingDays extends AppCompatActivity implements UpcomingDaysAdapt
                 showWeather();
                 LinkedHashSet<String> upcomingDays = new LinkedHashSet<>();
                 for(int i = 0;i < parsedWeatherResults.length;i++) {
-                    upcomingDays.add(GeneralUtils.getDayByName(parsedWeatherResults[i].split("\\s")[0]) + " " +
+                    upcomingDays.add(DateUtils.getDayByName(parsedWeatherResults[i].split("\\s")[0]) + " " +
 
-                         String.valueOf(GeneralUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
-                            + GeneralUtils.getMonthByName(parsedWeatherResults[i].split("\\s")[0], context));
+                         String.valueOf(DateUtils.getDayByNumber(parsedWeatherResults[i].split("\\s")[0])) + " "
+                            + DateUtils.getMonthByName(parsedWeatherResults[i].split("\\s")[0], context));
                 }
                 weatherData = parsedWeatherResults;
+                mProgressBar.setVisibility(View.INVISIBLE);
                 mAdapter.setWeatherData(upcomingDays.toArray(new String[upcomingDays.size()]));
             }else{
                 showErrorMessage();

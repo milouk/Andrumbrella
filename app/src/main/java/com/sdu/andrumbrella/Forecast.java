@@ -6,17 +6,18 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.TextView;
 
-import com.sdu.andrumbrella.utilities.GeneralUtils;
+import com.sdu.andrumbrella.utilities.WeatherUtils;
 
 public class Forecast extends AppCompatActivity {
 
     private RecyclerView forecastRecyclerView;
     private TextView forecast_error;
     private ForecastAdapter fAdapter;
-
+    private Intent dayIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +35,18 @@ public class Forecast extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(forecastRecyclerView.getContext(),
                 layoutManager.getOrientation());
         forecastRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        Intent dayIndex = getIntent();
-        loadForecast(dayIndex);
+        dayIndex = getIntent();
+        loadForecast();
     }
 
-    public void loadForecast(Intent dayIndex){
+
+
+
+    public void loadForecast() {
         forecast_error.setVisibility(View.INVISIBLE);
         forecastRecyclerView.setVisibility(View.VISIBLE);
-        if(dayIndex.hasExtra(Intent.EXTRA_TEXT) && dayIndex.hasExtra("SWITCH_STATE")) {
-           fAdapter.setForecastData(GeneralUtils.getWeatherData(dayIndex.getStringExtra(Intent.EXTRA_TEXT), dayIndex.getBooleanExtra("SWITCH_STATE", false)));
+        if (dayIndex.hasExtra(Intent.EXTRA_TEXT) && dayIndex.hasExtra("SWITCH_STATE")) {
+            fAdapter.setForecastData(WeatherUtils.getWeatherData(dayIndex.getStringExtra(Intent.EXTRA_TEXT), dayIndex.getBooleanExtra("SWITCH_STATE", false)));
         }
     }
 

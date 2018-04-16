@@ -3,7 +3,6 @@ package com.sdu.andrumbrella.utilities;
 
 
 
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +70,8 @@ public final class JsonUtils {
             String max_temp = main.getString(MAX_TMP);
             String min_temp = main.getString(MIN_TMP);
 
+            date = DateUtils.convertInLocalTime(date);
+
             if(date.split("\\s")[1].split(":")[0].equals("00")){
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 try {
@@ -82,13 +83,13 @@ public final class JsonUtils {
                     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     String previousDate2 = df.format(previousDate);
                    String finaldDate = previousDate2.replace(previousDate2.split("\\s")[1], "24:00:00");
-                   parsedWeatherData[i] = GeneralUtils.convertInLocalTime(finaldDate) + " "
+                   parsedWeatherData[i] = finaldDate + " "
                            + max_temp + " " + min_temp + " " + description.replace(" ", "/")  + "-" + icon;
                 }catch (ParseException e){
                     e.printStackTrace();
                 }
             }else {
-                parsedWeatherData[i] = GeneralUtils.convertInLocalTime(date) + " "
+                parsedWeatherData[i] = date + " "
                         + max_temp + " " + min_temp + " " + description.replace(" ", "/") +  "-" + icon;
             }
         }

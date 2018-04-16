@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         metricSwitch = findViewById(R.id.metric);
         searchButton = findViewById(R.id.search);
         errorMessage = findViewById(R.id.errorMessage);
-        countryCode.clearFocus();
-        cityName.clearFocus();
 
 
 
