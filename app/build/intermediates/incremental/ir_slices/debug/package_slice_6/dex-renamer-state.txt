@@ -1,4 +1,4 @@
-#Wed Apr 11 18:21:50 CEST 2018
-base.0=C\:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\21
+#Mon Apr 16 20:28:33 CEST 2018
+base.0=C\:\\Users\\Michael\\Desktop\\Andrumbrella\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\6
 path.0=classes.dex
 renamed.0=classes.dex
