@@ -1,4 +1,4 @@
-#Mon Apr 16 20:28:33 CEST 2018
-base.0=C\:\\Users\\Michael\\Desktop\\Andrumbrella\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Mon Apr 16 20:39:10 CEST 2018
+base.0=C\:\\Users\\Michael\\Desktop\\Andrumbrella\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 path.0=classes.dex
 renamed.0=classes.dex
