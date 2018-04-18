@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Michael\\Desktop\\Andrumbrella\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
+            "outputFile": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fr-rCA\\values-fr-rCA.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\382aa18fb94bb89eca49a399c4fb3856\\res\\values-fr-rCA\\values-fr-rCA.xml",
