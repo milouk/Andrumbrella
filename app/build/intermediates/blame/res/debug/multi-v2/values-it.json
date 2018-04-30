@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\Michael\\AndroidStudioProjects\\Andrumbrella\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-it\\values-it.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\382aa18fb94bb89eca49a399c4fb3856\\res\\values-it\\values-it.xml",
+                    "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.0.aar\\3afa5ba75fd9823e7cdef05378a792ea\\res\\values-it\\values-it.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\bcaf05baa088b9fcf87b2a4cd602391d\\res\\values-it\\values-it.xml",
+                    "source": "C:\\Users\\Michael\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.0.aar\\758151a1992bfbbe1c80051e219f3e29\\res\\values-it\\values-it.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

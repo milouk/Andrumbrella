@@ -110,6 +110,7 @@ public class UpcomingDays extends AppCompatActivity implements UpcomingDaysAdapt
 
     private void showErrorMessage(){
         mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
         mErrorMessage.setVisibility(View.VISIBLE);
     }
 
